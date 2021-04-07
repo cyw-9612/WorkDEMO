@@ -24,3 +24,5 @@ world文档操作类和调用demo
 USB通信类库的调用用例
 
 TCP通信用例
+
+基于poppler第三方库开发的PDF浏览方式
