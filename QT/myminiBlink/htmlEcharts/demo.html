@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="jquery-1.11.0.min.js"></script>
+    <script src="echarts.min.js"></script>
+    <script src="china.js"></script>
+</head>
+<body>
+    <div class="wrap" style="position: relative;">
+        <div id="map" style="width: 100%; height: 1000px;"></div>
+    </div>
+    <script>
+    var myChart = echarts.init(document.getElementById('map'));
+    // 失去坐标
+    var geoCoordMap = {
+            '上海': [121.4648,31.2891],
+            '东莞': [113.8953,22.901],
+            '东营': [118.7073,37.5513],
+            '中山': [113.4229,22.478],
+            '临汾': [111.4783,36.1615],
+            '临沂': [118.3118,35.2936],
+            '丹东': [124.541,40.4242],
+            '丽水': [119.5642,28.1854],
+            '乌鲁木齐': [87.9236,43.5883],
+            '佛山': [112.8955,23.1097],
+            '保定': [115.0488,39.0948],
+            '兰州': [103.5901,36.3043],
+            '包头': [110.3467,41.4899],
+            '北京': [116.4551,40.2539],
+            '北海': [109.314,21.6211],
+            '南京': [118.8062,31.9208],
+            '南宁': [108.479,23.1152],
+            '南昌': [116.0046,28.6633],
+            '南通': [121.1023,32.1625],
+            '厦门': [118.1689,24.6478],
+            '台州': [121.1353,28.6688],
+            '合肥': [117.29,32.0581],
+            '呼和浩特': [111.4124,40.4901],
+            '咸阳': [108.4131,34.8706],
+            '哈尔滨': [127.9688,45.368],
+            '唐山': [118.4766,39.6826],
+            '嘉兴': [120.9155,30.6354],
+            '大同': [113.7854,39.8035],
+            '大连': [122.2229,39.4409],
+            '天津': [117.4219,39.4189],
+            '太原': [112.3352,37.9413],
+            '威海': [121.9482,37.1393],
+            '宁波': [121.5967,29.6466],
+            '宝鸡': [107.1826,34.3433],
+            '宿迁': [118.5535,33.7775],
+            '常州': [119.4543,31.5582],
+            '广州': [113.5107,23.2196],
+            '廊坊': [116.521,39.0509],
+            '延安': [109.1052,36.4252],
+            '张家口': [115.1477,40.8527],
+            '徐州': [117.5208,34.3268],
+            '德州': [116.6858,37.2107],
+            '惠州': [114.6204,23.1647],
+            '成都': [103.9526,30.7617],
+            '扬州': [119.4653,32.8162],
+            '承德': [117.5757,41.4075],
+            '拉萨': [91.1865,30.1465],
+            '无锡': [120.3442,31.5527],
+            '日照': [119.2786,35.5023],
+            '昆明': [102.9199,25.4663],
+            '杭州': [119.5313,29.8773],
+            '枣庄': [117.323,34.8926],
+            '柳州': [109.3799,24.9774],
+            '株洲': [113.5327,27.0319],
+            '武汉': [114.3896,30.6628],
+            '汕头': [117.1692,23.3405],
+            '江门': [112.6318,22.1484],
+            '沈阳': [123.1238,42.1216],
+            '沧州': [116.8286,38.2104],
+            '河源': [114.917,23.9722],
+            '泉州': [118.3228,25.1147],
+            '泰安': [117.0264,36.0516],
+            '泰州': [120.0586,32.5525],
+            '济南': [117.1582,36.8701],
+            '济宁': [116.8286,35.3375],
+            '海口': [110.3893,19.8516],
+            '淄博': [118.0371,36.6064],
+            '淮安': [118.927,33.4039],
+            '深圳': [114.5435,22.5439],
+            '清远': [112.9175,24.3292],
+            '温州': [120.498,27.8119],
+            '渭南': [109.7864,35.0299],
+            '湖州': [119.8608,30.7782],
+            '湘潭': [112.5439,27.7075],
+            '滨州': [117.8174,37.4963],
+            '潍坊': [119.0918,36.524],
+            '烟台': [120.7397,37.5128],
+            '玉溪': [101.9312,23.8898],
+            '珠海': [113.7305,22.1155],
+            '盐城': [120.2234,33.5577],
+            '盘锦': [121.9482,41.0449],
+            '石家庄': [114.4995,38.1006],
+            '福州': [119.4543,25.9222],
+            '秦皇岛': [119.2126,40.0232],
+            '绍兴': [120.564,29.7565],
+            '聊城': [115.9167,36.4032],
+            '肇庆': [112.1265,23.5822],
+            '舟山': [122.2559,30.2234],
+            '苏州': [120.6519,31.3989],
+            '莱芜': [117.6526,36.2714],
+            '菏泽': [115.6201,35.2057],
+            '营口': [122.4316,40.4297],
+            '葫芦岛': [120.1575,40.578],
+            '衡水': [115.8838,37.7161],
+            '衢州': [118.6853,28.8666],
+            '西宁': [101.4038,36.8207],
+            '西安': [109.1162,34.2004],
+            '贵阳': [106.6992,26.7682],
+            '连云港': [119.1248,34.552],
+            '邢台': [114.8071,37.2821],
+            '邯郸': [114.4775,36.535],
+            '郑州': [113.4668,34.6234],
+            '鄂尔多斯': [108.9734,39.2487],
+            '重庆': [107.7539,30.1904],
+            '金华': [120.0037,29.1028],
+            '铜川': [109.0393,35.1947],
+            '银川': [106.3586,38.1775],
+            '镇江': [119.4763,31.9702],
+            '长春': [125.8154,44.2584],
+            '长沙': [113.0823,28.2568],
+            '长治': [112.8625,36.4746],
+            '阳泉': [113.4778,38.0951],
+            '青岛': [120.4651,36.3373],
+            '韶关': [113.7964,24.7028]
+    };
+
+    //省
+    var shengData = ['天津','江西','安徽','重庆','湖北','北京','山东','河南','江苏','福建','河北','陕西','上海','浙江','广西','广东','湖南','四川','山西','云南','贵州','甘肃','海南','内蒙古','辽宁','宁夏','吉林','黑龙江','青海','新疆','西藏'];
+    //市区
+    var shiData = ['天津', '南昌', '合肥', '重庆', '武汉','北京', '日照', '郑州', '南京', '福州', '石家庄','西安', '上海', '杭州', '南宁', '广州', '长沙', '成都','太原', '昆明','贵阳', '兰州', '海口', '呼和浩特', '沈阳', '银川', '长春', '哈尔滨', '西宁', '乌鲁木齐', '拉萨'];
+
+    var SSobj = {};
+    for(var i=0;i<shengData.length;i++){
+        SSobj[shiData[i]] = shengData[i];
+    }
+
+    //流出
+    var lcdata = [267,256,122,107,70,68,66,641,619,540,361,335,389,215,250,262,213,118,103,63,541,288,253,204,119,56,49,30,10,10,4];
+    //流入
+    var lrdata = [197,166,271,143,285,910,209,216,696,276,343,251,161,944,116,564,301,357,402,432,113,809,634,727,117,316,231,455,116,138,45];
+    //市区数据
+    var rawData = [];
+    for(var i=0;i<shiData.length;i++){
+        var arr = [];
+        arr.push(shiData[i]);
+        arr.push(lcdata[i]);
+        arr.push(lrdata[i]);
+
+        rawData.push(arr);
+    }
+
+
+    function makeMapData(rawData) {
+        var mapData = [];
+        for (var i = 0; i < rawData.length; i++) {
+            var geoCoord = geoCoordMap[rawData[i][0]];//某个市区得经纬度
+            if (geoCoord) {
+                mapData.push({
+                    name: rawData[i][0],//某个市区的名称
+                    value: geoCoord.concat(rawData[i].slice(1))
+                });
+            }
+        }
+        return mapData;
+    };
+
+    var option = {
+        animation: false,
+        // 地图背景颜色
+        backgroundColor: new echarts.graphic.RadialGradient(0.5, 0.5, 0.4, [{
+            offset: 0,
+            color: '#fff'
+        }, {
+            offset: 1,
+            color: '#fff'
+        }]),
+        tooltip: {
+            trigger: 'axis'
+        },
+        geo: {
+            map: 'china',
+            // silent: true,
+            roam: true,
+            zoom: 1, // 地图初始大小
+            center: [116.366794, 40.400309], // 初始中心位置
+            label: {
+                color:"#fff",
+                emphasis: {
+                    show: false
+                }
+            },
+            itemStyle: {
+                normal: {
+                    areaColor: '#323c48',
+                    borderColor: '#111'
+                },
+                emphasis: {
+                    areaColor: '#2a333d'
+                }
+            }
+
+        },
+        series: []
+    };
+
+    function renderEachCity() {
+        var option = {
+            xAxis: [],
+            yAxis: [],
+            grid: [],
+            series: []
+        };
+
+        echarts.util.each(rawData, function(dataItem, idx) {
+            var geoCoord = geoCoordMap[dataItem[0]];
+            var coord = myChart.convertToPixel('geo', geoCoord);
+            idx += '';
+
+            var inflationData = [dataItem[1],dataItem[2]];
+
+            option.xAxis.push({
+                id: idx,
+                gridId: idx,
+                type: 'category',
+                name: SSobj[dataItem[0]],
+                nameLocation: 'middle',
+                nameGap: 3,
+                nameTextStyle:{
+                    color:"#eac736",
+                },
+                splitLine: {
+                    show: false
+                },
+                axisTick: {
+                    show: false
+                },
+                axisLabel: {
+                    color:"#fff",
+                    show: false
+                },
+                axisLine: {
+                    onZero: false,
+                    lineStyle: {
+                        color: '#555'
+                    }
+                },
+                // data: xAxisCategory,
+                data: ["流出","流入"],
+                z: 100
+
+            });
+            option.yAxis.push({
+                id: idx,
+                gridId: idx,
+                max:1000,
+                min:4,
+                splitLine: {
+                    show: false
+                },
+                axisTick: {
+                    show: false
+                },
+                axisLabel: {
+                    show: false
+                },
+                axisLine: {
+                    show: false,
+                    lineStyle: {
+                        color: '#fff'
+                    }
+                },
+                z: 100
+            });
+            option.grid.push({
+                id: idx,
+                width: 30,
+                height: 40,
+                left: coord[0] - 15,
+                top: coord[1] - 15,
+                z: 100
+            });
+            option.series.push({
+                id: idx,
+                type: 'bar',
+                xAxisId: idx,
+                yAxisId: idx,
+                barGap: 0,
+                barCategoryGap: 0,
+                // data: inflationData,
+                data: inflationData,
+                z: 100,
+                itemStyle: {
+                    normal: {
+                        color: function(params){
+                            // 柱状图每根柱子颜色
+                            var colorList = ['#e28b4a','#9db578'];//['#fcae91','#fb6a4a','#cb181d'];
+                            return colorList[params.dataIndex];
+                        }
+                    }
+                }
+            });
+        });
+        console.time('a');
+        myChart.setOption(option);
+        console.timeEnd('a');
+    }
+
+    setTimeout(renderEachCity, 0);
+    // 缩放和拖拽
+    function throttle(fn, delay, debounce) {
+
+        var currCall;
+        var lastCall = 0;
+        var lastExec = 0;
+        var timer = null;
+        var diff;
+        var scope;
+        var args;
+
+        delay = delay || 0;
+
+        function exec() {
+            lastExec = (new Date()).getTime();
+            timer = null;
+            fn.apply(scope, args || []);
+        }
+
+        var cb = function() {
+            currCall = (new Date()).getTime();
+            scope = this;
+            args = arguments;
+            diff = currCall - (debounce ? lastCall : lastExec) - delay;
+
+            clearTimeout(timer);
+
+            if (debounce) {
+                timer = setTimeout(exec, delay);
+            } else {
+                if (diff >= 0) {
+                    exec();
+                } else {
+                    timer = setTimeout(exec, -diff);
+                }
+            }
+
+            lastCall = currCall;
+        };
+
+        return cb;
+    }
+
+    var throttledRenderEachCity = throttle(renderEachCity, 0);
+    myChart.on('geoRoam', throttledRenderEachCity);
+    myChart.setOption(option);
+
+
+    // 点击显示柱状图
+    myChart.on('click',function(e){
+        if(e.componentSubType == "bar"){
+            // 先清除所有柱状图
+            $('.tongJiTu').remove();
+            // 创建遮挡层
+            creatWrap();
+            // 创建柱状图容器
+            var divObj = document.createElement('div');
+            $(divObj).addClass('tongJiTu');
+            divObj.id = 'zhuzhuang';
+            var divX = getMousePos()['x']; 
+            var divY = getMousePos()['y']; 
+            $(divObj).css({
+                'width': 320,
+                'height': 180,
+                'border': '1px solid #ccc',
+                'position': 'absolute',
+                'top': divY,
+                'left': divX
+            }).appendTo('.wrap');
+            // 获取数据
+            var pointData = [];
+            pointData.push(lcdata[e.seriesIndex]);
+            pointData.push(lrdata[e.seriesIndex]);
+            // 创建柱状图
+            zhuZhuangTu(pointData);
+            // 点击遮挡层消失
+            clearWrap('.zhedang');
+        }
+        return;
+    });
+    // 获取横纵坐标
+    function getMousePos(e) {
+        var e = event || window.event;
+        var scrollX = document.documentElement.scrollLeft || document.body.scrollLeft;
+        var scrollY = document.documentElement.scrollTop || document.body.scrollTop;
+        var x = e.pageX || e.clientX + scrollX;
+        var y = e.pageY || e.clientY + scrollY;
+        return {'x': x,'y': y};
+    }
+    // 生成柱状图
+    function zhuZhuangTu(data) {
+        var zhuzhuang = echarts.init(document.getElementById('zhuzhuang'));
+        option = {
+            backgroundColor: 'rgba(255,255,255,.3)',
+            legend: {
+                data: ['流出','流入']
+            },
+
+            xAxis: [
+                {
+                    
+                    type: 'category',
+                    data: ['流出','流入']
+                }
+            ],
+            yAxis: [
+                {
+                    splitLine: {
+                        show: false
+                    },
+                    type: 'value'
+                }
+            ],
+            series: [
+                {
+                    type: 'bar',
+                    itemStyle: {
+                        normal: {
+                            color: function(params){
+                                var colorList = ['#e28b4a','#9db578'];
+                                return colorList[params.dataIndex];
+                            },
+                            label: {
+                                show: true,
+                                position: 'top',
+                                textStyle: {
+                                    color: '#000'
+                                }
+                            }
+                        }
+                    },
+                    data: data
+                }
+            ]
+        };
+        zhuzhuang.setOption(option);
+    }
+    // 生成遮挡层
+    function creatWrap(){
+        var zheDang = document.createElement('div');
+        $(zheDang).addClass('zhedang').css({
+            width: '100%',
+            height: '100%',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            backgroundColor: 'rgba(0,0,0,.2)'
+        }).appendTo('.wrap');
+    }
+    // 去掉遮挡层
+    function clearWrap(id){
+        $(id).click(function(e){
+            this.remove();
+            $('.tongJiTu').remove();
+            return false;
+        });
+    }
+    </script>
+</body>
+</html>
