@@ -31,3 +31,5 @@
 /QT/IAP_Load-master/.gitattributes
 /QT/myPrintPreview/*.user
 /QT/myPrintPreview/Bin
+/QT/easyPdf/easyPdf.pro.user
+/QT/easyPdf/Bin
