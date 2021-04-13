@@ -1,7 +1,8 @@
 #include "mytreewidget.h"
 #include <QGridLayout>
+#include <QDebug>
 
-myTreeWidget::myTreeWidget()
+myTreeWidget::myTreeWidget(QWidget *parent)
 {
     initTreeWidgetItem();
 
@@ -10,6 +11,12 @@ myTreeWidget::myTreeWidget()
         this, SIGNAL(clicked(const QModelIndex &)),
         this, SLOT(expand(const QModelIndex &))
     );
+
+    QObject::connect(
+        this, SIGNAL(itemClicked(QTreeWidgetItem*,int)),
+        this, SLOT(slotClicked(QTreeWidgetItem*,int))
+    );
+
 }
 
 void myTreeWidget::initTreeWidgetItem()
@@ -20,68 +27,44 @@ void myTreeWidget::initTreeWidgetItem()
     //隐藏表头
     this->setHeaderHidden(true);
 
+    //禁用双击
+    this->setExpandsOnDoubleClick(false);
+
     //Item自适应大小
     this->resizeColumnToContents(0);
 
     QTreeWidgetItem *integralData = new QTreeWidgetItem(this); // 子项 积分数据
     integralData->setText(0,"积分数据");
     //integralData->setIcon();
-
-     QTreeWidgetItem *integralData00 = new QTreeWidgetItem(integralData);
-     dataWidget *tem0 = new dataWidget("总值数据");
-     this->setItemWidget(integralData00,0,tem0);
-
-     QTreeWidgetItem *integralData01 = new QTreeWidgetItem(integralData);
-     dataWidget *tem1 = new dataWidget("统计数据");
-     this->setItemWidget(integralData01,0,tem1);
-
-    dataWidget *tem2 = new dataWidget("1/1 OCT");
-    QTreeWidgetItem *integralData02 = new QTreeWidgetItem(integralData);
-    this->setItemWidget(integralData02,0,tem2);
-
-    dataWidget *tem3 = new dataWidget("1/3 OCT");
-    QTreeWidgetItem *integralData03= new QTreeWidgetItem(integralData);
-    this->setItemWidget(integralData03,0,tem3);
-
-    dataWidget *tem4 = new dataWidget("FFT 数据");
-    QTreeWidgetItem *integralData04= new QTreeWidgetItem(integralData);
-    this->setItemWidget(integralData04,0,tem4);
-
-    dataWidget *tem5 = new dataWidget("声暴露计数据");
-    QTreeWidgetItem *integralData05= new QTreeWidgetItem(integralData);
-    this->setItemWidget(integralData05,0,tem5);
-
-    dataWidget *tem6 = new dataWidget("24小时数据");
-    QTreeWidgetItem *integralData06= new QTreeWidgetItem(integralData);
-    this->setItemWidget(integralData06,0,tem6);
-
+    QStringList dataName;
+    dataName << "总值数据" << "统计数据" << "1/1 OCT" << "1/3 OCT" << "FFT 数据" << "声暴露计数据" << "24小时数据";
+    for (int i = 0; i < dataName.count(); i++)
+    {
+        QTreeWidgetItem *integralDataChild = new QTreeWidgetItem(integralData);
+        dataWidget *tem = new dataWidget(dataName[i]);
+        this->setItemWidget(integralDataChild,0,tem);
+    }
+    dataName.clear();
 
     QTreeWidgetItem *instantaneousData = new QTreeWidgetItem(this); // 子项 瞬时数据
     instantaneousData->setText(0,"瞬时数据");
     //instantaneousData->setIcon();
 
-    QTreeWidgetItem *instantaneousData0= new QTreeWidgetItem(instantaneousData);
-    dataWidget *tem10 = new dataWidget("总值数据");
-    this->setItemWidget(instantaneousData0,0,tem10);
-    QTreeWidgetItem *instantaneousData1= new QTreeWidgetItem(instantaneousData);
-    dataWidget *tem11 = new dataWidget("统计数据");
-    this->setItemWidget(instantaneousData1,0,tem11);
-    QTreeWidgetItem *instantaneousData2= new QTreeWidgetItem(instantaneousData);
-    dataWidget *tem12 = new dataWidget("1/1 OCT");
-    this->setItemWidget(instantaneousData2,0,tem12);
-    QTreeWidgetItem *instantaneousData3= new QTreeWidgetItem(instantaneousData);
-    dataWidget *tem13 = new dataWidget("1/3 OCT");
-    this->setItemWidget(instantaneousData3,0,tem13);
+    dataName << "总值数据" << "统计数据" << "1/1 OCT" << "1/3 OCT" ;
+    for (int i = 0; i < dataName.count(); i++)
+    {
+        QTreeWidgetItem *instantaneousDataChild = new QTreeWidgetItem(instantaneousData);
+        dataWidget *tem = new dataWidget(dataName[i]);
+        this->setItemWidget(instantaneousDataChild,0,tem);
+    }
+    dataName.clear();
 
     QTreeWidgetItem *soundRecording = new QTreeWidgetItem(this); // 子项 录音
     soundRecording->setText(0,"录音数据");
-    QTreeWidgetItem *integralData5 = new QTreeWidgetItem(soundRecording);
-    integralData5->setText(0,"录音数据");
     //soundRecording->setIcon();
-//    dataWidget *tem20 = new dataWidget("录音");
-//    this->setItemWidget(soundRecording,3,tem20);
-
-//    this->setItemWidget()
+    QTreeWidgetItem *soundRecording0= new QTreeWidgetItem(soundRecording);
+    dataWidget *tem20 = new dataWidget("录音");
+    this->setItemWidget(soundRecording0,0,tem20);
 
     QString styleTwo = "QTreeView{\
                 border: 1px solid lightgray;\
@@ -112,7 +95,8 @@ void myTreeWidget::initTreeWidgetItem()
                 image: url(./Resources/Images/branchClose2.png);\
         }";
     this->setStyleSheet(styleTwo);
-//    this->setExpandsOnDoubleClick(true);
+
+    //展开所有项
     this->expandAll();
     //设置缩进为0
     this->setIndentation(0);
@@ -124,53 +108,21 @@ void myTreeWidget::setInstrumentType(int type)
     m_instrumentType = type;
 }
 
-////利用事件过滤器实现导航栏按钮图标的转换
-//bool winMain::eventFilter(QObject *obj, QEvent *event)
-//{
-//    switch (event->type())
-//    {
-//        case QEvent::HoverEnter:
-//            if(obj == ui->btnAuth && false == ui->btnAuth->isChecked())
-//                ui->btnAuth->setIcon(QIcon(":/images/images/auth_checked.png"));
-//            else if(obj == ui->btnUpgrade && false == ui->btnUpgrade->isChecked())
-//                ui->btnUpgrade->setIcon(QIcon(":/images/images/updata_checked.png"));
-//            else if(obj == ui->btnAuthCode && false == ui->btnAuthCode->isChecked())
-//                ui->btnAuthCode->setIcon(QIcon(":/images/images/authcode_checked.png"));
-//            else if(obj == ui->btnPrint && false == ui->btnPrint->isChecked())
-//                ui->btnPrint->setIcon(QIcon(":/images/images/print_checked.png"));
-//            break;
-//        case QEvent::HoverLeave:
-//            if(obj == ui->btnAuth)
-//                ui->btnAuth->setIcon(QIcon(":/images/images/auth_unchecked.png"));
-//            else if(obj == ui->btnUpgrade)
-//                ui->btnUpgrade->setIcon(QIcon(":/images/images/updata_unchecked.png"));
-//            else if(obj == ui->btnAuthCode)
-//                ui->btnAuthCode->setIcon(QIcon(":/images/images/authcode_unchecked.png"));
-//            else if(obj == ui->btnPrint)
-//                ui->btnPrint->setIcon(QIcon(":/images/images/print_unchecked.png"));
-//            break;
-//        case QEvent::MouseButtonPress:
-//            if(obj == ui->btnAuth)
-//                ui->btnAuth->setIcon(QIcon(":/images/images/auth_unchecked.png"));
-//            else if(obj == ui->btnUpgrade)
-//                ui->btnUpgrade->setIcon(QIcon(":/images/images/updata_unchecked.png"));
-//            else if(obj == ui->btnAuthCode)
-//                ui->btnAuthCode->setIcon(QIcon(":/images/images/authcode_unchecked.png"));
-//            else if(obj == ui->btnPrint)
-//                ui->btnPrint->setIcon(QIcon(":/images/images/print_unchecked.png"));
-//            break;
-//            //    case QEvent::MouseButtonRelease:
-//            //        if(obj == ui->btnAuth)
-//            //            ui->btnAuth->setIcon(QIcon(":/images/images/auth_checked.png"));
-//            //        else if(obj == ui->btnUpgrade)
-//            //            ui->btnUpgrade->setIcon(QIcon(":/images/images/updata_checked.png"));
-//            //        else if(obj == ui->btnAuthCode)
-//            //            ui->btnAuthCode->setIcon(QIcon(":/images/images/authcode_checked.png"));
-//            //        else if(obj == ui->btnPrint)
-//            //            ui->btnPrint->setIcon(QIcon(":/images/images/print_checked.png"));
-//            //        break;
-//        default:
-//            break;
-//    }
-//    return QWidget::eventFilter(obj, event);
-//}
+void myTreeWidget::slotClicked(QTreeWidgetItem* item,int count)
+{
+    QTreeWidgetItem* parentItem = item->parent();
+    if(parentItem)
+    {
+        QString parentsName = parentItem->text(0);
+        QWidget *itemwidget = itemWidget(item, count);
+        dataWidget *dataWidgets = (dataWidget *)itemwidget;
+        QString currentItem = dataWidgets->getDataName();
+        qDebug() << "点击的是：" << parentsName << "->" << currentItem;
+        emit sigTreeWidgetChoseMsg(parentsName,currentItem);
+    }
+    else
+    {
+        qDebug() << "点击的是根节点" << item->text(0);
+    }
+
+}

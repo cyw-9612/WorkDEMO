@@ -24,8 +24,11 @@ enum enum_Type
 
 class myTreeWidget : public QTreeWidget
 {
+    Q_OBJECT
+
 public:
-    myTreeWidget();
+    //myTreeWidget();
+    explicit myTreeWidget(QWidget *parent = 0);
 
     /**
      * @brief  设置数据导航栏的类型
@@ -34,9 +37,14 @@ public:
      */
     void setInstrumentType(int type);
 
-////事件过滤
-//protected:
-//    bool eventFilter(QObject *obj, QEvent *event) override;
+signals:
+    //选择数据按钮信号
+    void sigTreeWidgetChoseMsg(QString title, QString msg);
+
+private slots:
+    //相应点击的项
+    void slotClicked(QTreeWidgetItem* item,int count);
+
 
 private:
     void initTreeWidgetItem();	// 初始化树列表
