@@ -38,3 +38,5 @@
 /QT/myTreeWidgetTest/myTreeWidgetTest.pro.user
 /QT/myTabWidget/*.user
 /QT/myTabWidget/Bin
+/QT/myHistogramTest/Bin
+/QT/myHistogramTest/*.user
