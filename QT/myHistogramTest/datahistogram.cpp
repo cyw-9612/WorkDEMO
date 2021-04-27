@@ -8,11 +8,13 @@ dataHistogram::dataHistogram(QWidget *parent)
     ui->setupUi(this);
     for(int i = 1; i<=27 ; i++)
     {
-        ticks << i; //要显示的刻度
+        ticks << i; //初始化要显示的刻度
     }
 
+    //设置柱状图颜色
     m_listColor << QColor(210,90,90) << QColor (255, 127, 80) << QColor (30, 144, 255)
                          << QColor (218, 165, 32) << QColor (255, 0, 255) << QColor (147, 112, 219);
+
     labels <<QObject::tr("LAFmax  ")
           <<QObject::tr("LCFmax  ")
           <<QObject::tr("LZFmax  ")
@@ -122,11 +124,23 @@ dataHistogram::dataHistogram(QWidget *parent)
     pGraph->setData(ticks,v_data);
     pGraph->setPen(QPen(QColor(255,0,0,0))); //设置折线为透明
 
+    //设置消息提示框
+    QList<QString> dataNameList;
+    dataNameList << "L5";
+    tip=new myToolTip(m_listColor,dataNameList);
+    tip->anchorTarget(ui->Plot);
+
     connect(ui->Plot,SIGNAL(mouseChange(int, float)), this, SLOT(slotMouseChange(int, float)));
 }
 
 dataHistogram::~dataHistogram()
 {
+    if(tip != nullptr)
+    {
+        delete tip;
+        tip = nullptr;
+    }
+
     delete ui;
 }
 
@@ -144,14 +158,19 @@ void dataHistogram::slotMouseChange(int x_val, float y_val)
         v_Mousedata << 0;
     }
 
-    QString strToolTip;
-    strToolTip += "详情：";
-    strToolTip += "\n";
-    strToolTip += labels[x_val];
-    strToolTip += QString::number(y_val);
-    strToolTip += "dB";
+    QList<QString> dataName;
+    QList<float> data;
+    dataName << labels[x_val] ;
+    data << y_val;
+    tip->setTextList(dataName,data);
+//    QString strToolTip;
+//    strToolTip += "详情：";
+//    strToolTip += "\n";
+//    strToolTip += labels[x_val];
+//    strToolTip += QString::number(y_val);
+//    strToolTip += "dB";
 
-    QToolTip::showText(cursor().pos(), strToolTip, ui->Plot);
+//    QToolTip::showText(cursor().pos(), strToolTip, ui->Plot);
 
     v_Mousedata[x_val] = y_val;
     m_mousebar->setData(ticks,v_Mousedata);

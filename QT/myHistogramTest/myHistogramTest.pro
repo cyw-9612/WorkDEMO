@@ -19,15 +19,18 @@ SOURCES += \
     main.cpp \
     datahistogram.cpp \
     mycustomplot.cpp \
+    mytooltip.cpp \
     qcustomplot.cpp
 
 HEADERS += \
     datahistogram.h \
     mycustomplot.h \
+    mytooltip.h \
     qcustomplot.h
 
 FORMS += \
-    datahistogram.ui
+    datahistogram.ui \
+    mytooltip.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

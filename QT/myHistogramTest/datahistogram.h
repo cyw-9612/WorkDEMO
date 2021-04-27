@@ -4,6 +4,7 @@
 #include <QWidget>
 #include "qcustomplot.h"
 #include "mycustomplot.h"
+#include "mytooltip.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class dataHistogram; }
@@ -31,5 +32,7 @@ private:
     QVector<double> v_Mousedata; //鼠标对应的坐标轴数据列表
 
     QVector<QString> labels; //要显示的刻度的下标
+
+    myToolTip *tip = nullptr;
 };
 #endif // DATAHISTOGRAM_H
