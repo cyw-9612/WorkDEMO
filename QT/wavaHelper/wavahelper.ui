@@ -1,0 +1,674 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>wavaHelper</class>
+ <widget class="QDialog" name="wavaHelper">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle">
+   <string>wavaHelper</string>
+  </property>
+  <widget class="QWidget" name="widget_botton" native="true">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>100</y>
+     <width>800</width>
+     <height>500</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QWidget#widget_botton{
+background-color: rgb(255, 255, 255);}</string>
+   </property>
+   <widget class="QLabel" name="label_choise">
+    <property name="geometry">
+     <rect>
+      <x>107</x>
+      <y>20</y>
+      <width>91</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 75 16pt;
+
+color: rgb(0, 0, 0);</string>
+    </property>
+    <property name="text">
+     <string>原始文件</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_choiseFile">
+    <property name="geometry">
+     <rect>
+      <x>139</x>
+      <y>58</y>
+      <width>51</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 75 14pt ;
+color: rgb(0, 0, 0);</string>
+    </property>
+    <property name="text">
+     <string>路径：</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="edit_oldFile">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>52</y>
+      <width>377</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QWidget{font: large /'SourceHanSansK-Regular/';
+	background-color: rgb(238,238,238);
+font-size:16px;border-width:1px;border-color:rgba(10,152,182,1);
+border-style: solid;border-radius:2px;padding: 1px 1px}
+</string>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_choseFile">
+    <property name="geometry">
+     <rect>
+      <x>590</x>
+      <y>52</y>
+      <width>88</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{ font: bold large 'SourceHanSansK-Regular';font-size:14px;
+                                border: 0px solid;
+                                background-color:rgb(1, 160, 165);
+                                color:rgba(255, 255, 255,1);
+                                border-radius: 2px;
+                                }
+                                QPushButton:disabled{
+                                background-color:#DCDCDC;
+                                border-radius:2px;
+                                color:#FFFFFF;    
+                                }
+                                QPushButton:hover{
+                                border: 0px solid;
+                                background-color:rgba(88, 164, 176,1);
+                                color:rgba(255, 255, 255,1);
+                                border-radius:2px;
+                                opacity:0.2;
+                                }
+                                QPushButton:pressed{
+                                background-color:rgba(58, 108, 116,1);
+                                color:rgba(255, 255, 255,1);
+                                border-radius:2px;
+                                }</string>
+    </property>
+    <property name="text">
+     <string>选择文件</string>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="textEdit_fileInfo">
+    <property name="geometry">
+     <rect>
+      <x>142</x>
+      <y>94</y>
+      <width>531</width>
+      <height>118</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QWidget{font: large /'SourceHanSansK-Regular/';
+	background-color: rgb(255,255,255);
+font-size:16px;border-width:1px;border-color:rgba(153,153,153,1);
+border-style: solid;border-radius:2px;padding: 1px 1px}
+    QScrollBar{background-color:rgb(218,222,223); width:10px;}
+	QScrollBar::handle{background-color:rgb(180, 180, 180); border:2px solid transparent; border-radius:5px;}
+		QScrollBar::handle:hover{background-color:rgb(139, 139, 139);}
+		QScrollBar::sub-line{background:transparent;}
+		QScrollBar::add-line{background:transparent;}</string>
+    </property>
+   </widget>
+   <widget class="Line" name="line">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>232</y>
+      <width>780</width>
+      <height>1</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>0</width>
+      <height>1</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">    QFrame
+    {
+    	border:none;
+    	background-color:rgba(216,216,216,1);
+    	max-height : 1px;
+    }</string>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="Line" name="line_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>327</y>
+      <width>780</width>
+      <height>1</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>0</width>
+      <height>1</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">    QFrame
+    {
+    	border:none;
+    	background-color:rgba(216,216,216,1);
+    	max-height : 1px;
+    }</string>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="edit_newFile">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>275</y>
+      <width>377</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QWidget{font: large /'SourceHanSansK-Regular/';
+	background-color: rgb(238,238,238);
+font-size:16px;border-width:1px;border-color:rgba(10,152,182,1);
+border-style: solid;border-radius:2px;padding: 1px 1px}</string>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_newFile">
+    <property name="geometry">
+     <rect>
+      <x>139</x>
+      <y>281</y>
+      <width>51</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 75 14pt ;
+color: rgb(0, 0, 0);</string>
+    </property>
+    <property name="text">
+     <string>路径：</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_saveFile">
+    <property name="geometry">
+     <rect>
+      <x>590</x>
+      <y>275</y>
+      <width>88</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{ font: bold large 'SourceHanSansK-Regular';font-size:14px;
+                                border: 0px solid;
+                                background-color:rgb(1, 160, 165);
+                                color:rgba(255, 255, 255,1);
+                                border-radius: 2px;
+                                }
+                                QPushButton:disabled{
+                                background-color:#DCDCDC;
+                                border-radius:2px;
+                                color:#FFFFFF;    
+                                }
+                                QPushButton:hover{
+                                border: 0px solid;
+                                background-color:rgba(88, 164, 176,1);
+                                color:rgba(255, 255, 255,1);
+                                border-radius:2px;
+                                opacity:0.2;
+                                }
+                                QPushButton:pressed{
+                                background-color:rgba(58, 108, 116,1);
+                                color:rgba(255, 255, 255,1);
+                                border-radius:2px;
+                                }</string>
+    </property>
+    <property name="text">
+     <string>保存路径</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_save">
+    <property name="geometry">
+     <rect>
+      <x>107</x>
+      <y>243</y>
+      <width>91</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 75 16pt ;
+color: rgb(0, 0, 0);</string>
+    </property>
+    <property name="text">
+     <string>目标文件</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_parameter">
+    <property name="geometry">
+     <rect>
+      <x>107</x>
+      <y>338</y>
+      <width>91</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 75 16pt ;
+color: rgb(0, 0, 0);</string>
+    </property>
+    <property name="text">
+     <string>参数设置</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_enlarge">
+    <property name="geometry">
+     <rect>
+      <x>139</x>
+      <y>375</y>
+      <width>22</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QCheckBox{ spacing: 5px;font: 13pt /'SourceHanSansK-Regular/';}
+QCheckBox::indicator{ width: 22px;height: 22px;}
+QCheckBox::indicator:unchecked{image:url(:images/diachecked.png);}
+QCheckBox::indicator:checked{image:url(:images/checked.png);}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="checked">
+     <bool>true</bool>
+    </property>
+    <property name="autoRepeat">
+     <bool>false</bool>
+    </property>
+    <property name="autoExclusive">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_decline">
+    <property name="geometry">
+     <rect>
+      <x>416</x>
+      <y>375</y>
+      <width>22</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QCheckBox{ spacing: 5px;font: 13pt /'SourceHanSansK-Regular/';}
+QCheckBox::indicator{ width: 22px;height: 22px;}
+QCheckBox::indicator:unchecked{image:url(:images/diachecked.png);}
+QCheckBox::indicator:checked{image:url(:images/checked.png);}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="checked">
+     <bool>false</bool>
+    </property>
+    <property name="autoRepeat">
+     <bool>false</bool>
+    </property>
+    <property name="autoExclusive">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lab_enlager">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>375</y>
+      <width>91</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 75 14pt ;
+color: rgb(0, 0, 0);</string>
+    </property>
+    <property name="text">
+     <string>放大倍数：</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lab_decline">
+    <property name="geometry">
+     <rect>
+      <x>448</x>
+      <y>375</y>
+      <width>91</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 75 14pt ;
+color: rgb(0, 0, 0);</string>
+    </property>
+    <property name="text">
+     <string>衰减倍数：</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="edit_enlarge">
+    <property name="geometry">
+     <rect>
+      <x>262</x>
+      <y>370</y>
+      <width>144</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QWidget{font: large /'SourceHanSansK-Regular/';
+	background-color: rgb(238,238,238);
+font-size:16px;border-width:1px;border-color:rgba(10,152,182,1);
+border-style: solid;border-radius:2px;padding: 1px 1px}</string>
+    </property>
+    <property name="readOnly">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="edit_decline">
+    <property name="geometry">
+     <rect>
+      <x>540</x>
+      <y>370</y>
+      <width>144</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QWidget{font: large /'SourceHanSansK-Regular/';
+	background-color: rgb(255,255,255);
+font-size:16px;border-width:1px;border-color:rgba(238,238,238,1);
+border-style: solid;border-radius:2px;padding: 1px 1px}</string>
+    </property>
+    <property name="readOnly">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lab_enlargeRange">
+    <property name="geometry">
+     <rect>
+      <x>260</x>
+      <y>400</y>
+      <width>91</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 8pt &quot;黑体&quot;;
+color: rgb(255, 0, 0);</string>
+    </property>
+    <property name="text">
+     <string>限制范围(1-200)</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lab_declineRange">
+    <property name="geometry">
+     <rect>
+      <x>540</x>
+      <y>400</y>
+      <width>91</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 8pt &quot;黑体&quot;;
+color: rgb(255, 0, 0);</string>
+    </property>
+    <property name="text">
+     <string>限制范围(1-200)</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_start">
+    <property name="geometry">
+     <rect>
+      <x>352</x>
+      <y>440</y>
+      <width>100</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{ font: bold large 'SourceHanSansK-Regular';font-size:14px;
+                                border: 0px solid;
+                                background-color:rgb(1, 160, 165);
+                                color:rgba(255, 255, 255,1);
+                                border-radius: 2px;
+                                }
+                                QPushButton:disabled{
+                                background-color:#DCDCDC;
+                                border-radius:2px;
+                                color:#FFFFFF;    
+                                }
+                                QPushButton:hover{
+                                border: 0px solid;
+                                background-color:rgba(88, 164, 176,1);
+                                color:rgba(255, 255, 255,1);
+                                border-radius:2px;
+                                opacity:0.2;
+                                }
+                                QPushButton:pressed{
+                                background-color:rgba(58, 108, 116,1);
+                                color:rgba(255, 255, 255,1);
+                                border-radius:2px;
+                                }</string>
+    </property>
+    <property name="text">
+     <string>开始转换</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QWidget" name="widget_top" native="true">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>100</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QWidget#widget_top{
+background-image: url(:images/topBackImg.png);}</string>
+   </property>
+   <widget class="QPushButton" name="btnMin">
+    <property name="geometry">
+     <rect>
+      <x>720</x>
+      <y>0</y>
+      <width>40</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+QPushButton:hover{border: none;
+background-image:url(:/images/btnMin_hover.png);;}
+
+
+QPushButton{border: none;
+outline: none;
+background-image:url(:/images/btnMin_normal.png);}
+
+QPushButton:pressed{border: none;
+background-image:url(:/images/btnMin_pressed.png);}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnClose">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>760</x>
+      <y>0</y>
+      <width>40</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+QPushButton:hover{border: none;
+background-image:url(:/images/btnClose_hover.png);;}
+
+
+QPushButton{border: none;
+outline: none;
+background-image:url(:/images/btnClose_normal.png);}
+
+QPushButton:pressed{border: none;
+background-image:url(:/images/btnClose_pressed.png);}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -1,0 +1,20 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/icon.png</file>
+        <file>images/topBackImg.png</file>
+        <file>images/checked.png</file>
+        <file>images/diachecked.png</file>
+        <file>images/btnMin_hover.png</file>
+        <file>images/btnMin_normal.png</file>
+        <file>images/btnMin_pressed.png</file>
+        <file>images/btnMax_normal.png</file>
+        <file>images/btnClose_hover.png</file>
+        <file>images/btnClose_normal.png</file>
+        <file>images/btnClose_pressed.png</file>
+        <file>images/btnClose_mini.png</file>
+        <file>images/btnClose_mini_norm.png</file>
+    </qresource>
+    <qresource prefix="/qt/etc">
+        <file>qt.conf</file>
+    </qresource>
+</RCC>
