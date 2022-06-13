@@ -5,14 +5,8 @@
     <qresource prefix="/Font"/>
     <qresource prefix="/">
         <file>images/add.png</file>
-        <file>images/AWA5662.png</file>
-        <file>images/AWA5662-hove.png</file>
-        <file>images/AWA5912.png</file>
-        <file>images/AWA5912-hove.png</file>
         <file>images/AWA5920.png</file>
         <file>images/AWA5920-hove.png</file>
-        <file>images/AWA6292.png</file>
-        <file>images/AWA6292-hove.png</file>
         <file>images/btnClose_hover.png</file>
         <file>images/btnClose_mini.png</file>
         <file>images/btnClose_mini_norm.png</file>
@@ -40,8 +34,6 @@
         <file>images/LApeak.png</file>
         <file>images/lastOne.png</file>
         <file>images/logo.png</file>
-        <file>images/musicIco.png</file>
-        <file>images/musicIco1.png</file>
         <file>images/nestOne.png</file>
         <file>images/radius_back.png</file>
         <file>images/radius_front.png</file>
