@@ -1,0 +1,66 @@
+<RCC>
+    <qresource prefix="/qt/etc">
+        <file>qt.conf</file>
+    </qresource>
+    <qresource prefix="/Font"/>
+    <qresource prefix="/">
+        <file>images/add.png</file>
+        <file>images/AWA5662.png</file>
+        <file>images/AWA5662-hove.png</file>
+        <file>images/AWA5912.png</file>
+        <file>images/AWA5912-hove.png</file>
+        <file>images/AWA5920.png</file>
+        <file>images/AWA5920-hove.png</file>
+        <file>images/AWA6292.png</file>
+        <file>images/AWA6292-hove.png</file>
+        <file>images/btnClose_hover.png</file>
+        <file>images/btnClose_mini.png</file>
+        <file>images/btnClose_mini_norm.png</file>
+        <file>images/btnClose_normal.png</file>
+        <file>images/btnMax_hover.png</file>
+        <file>images/btnMax_normal.png</file>
+        <file>images/btnMin_hover.png</file>
+        <file>images/btnMin_normal.png</file>
+        <file>images/Calendar.png</file>
+        <file>images/check.png</file>
+        <file>images/choseTitle.png</file>
+        <file>images/connect.png</file>
+        <file>images/disconnect.png</file>
+        <file>images/Down_hover.png</file>
+        <file>images/Down_normal.png</file>
+        <file>images/Down_normalBlue.png</file>
+        <file>images/equipment.png</file>
+        <file>images/exclamatory_mark.png</file>
+        <file>images/finish.png</file>
+        <file>images/framework.ico</file>
+        <file>images/help.png</file>
+        <file>images/help2.png</file>
+        <file>images/IniDate.png</file>
+        <file>images/instantaneousData.png</file>
+        <file>images/LApeak.png</file>
+        <file>images/lastOne.png</file>
+        <file>images/logo.png</file>
+        <file>images/musicIco.png</file>
+        <file>images/musicIco1.png</file>
+        <file>images/nestOne.png</file>
+        <file>images/radius_back.png</file>
+        <file>images/radius_front.png</file>
+        <file>images/rectangle1.png</file>
+        <file>images/redPoint.png</file>
+        <file>images/runState.png</file>
+        <file>images/Search.png</file>
+        <file>images/Search_hover.png</file>
+        <file>images/Search_soundView.png</file>
+        <file>images/Setting.png</file>
+        <file>images/Setting_hover.png</file>
+        <file>images/soundRecording.png</file>
+        <file>images/startPicture.png</file>
+        <file>images/startState.png</file>
+        <file>images/stopState.png</file>
+        <file>images/transmission.png</file>
+        <file>images/uncheck.png</file>
+        <file>images/unEnable.png</file>
+        <file>images/valueDown.png</file>
+        <file>images/valueUp.png</file>
+    </qresource>
+</RCC>

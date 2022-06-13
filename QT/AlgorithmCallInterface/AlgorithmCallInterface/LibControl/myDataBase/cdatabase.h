@@ -107,48 +107,6 @@ private:
     bool initTabFunction();
 
     /**
-     * @brief 初始化仪器通信方式信息表
-     * @return
-     */
-    bool initTabTransmission();
-
-    /**
-     * @brief 初始化仪器校准记录信息表
-     * @return
-     */
-    bool initTabCorrect();
-
-    /**
-     * @brief 初始化瞬时数据记录信息表
-     * @return
-     */
-    bool initTabInstantTime();
-
-    /**
-     * @brief 初始化录音数据记录信息表
-     * @return
-     */
-    bool initTabSoundRecord();
-
-    /**
-     * @brief 初始化测量数据记录信息表
-     * @return
-     */
-    bool initTabMeasureData();
-
-    /**
-     * @brief 初始化模板数据记录表
-     * @return
-     */
-    bool initTemplateData();
-
-    /**
-     * @brief 初始化功能显示项目选择记录记录表
-     * @return
-     */
-    bool initFunctionChoiseData();
-
-    /**
      * @brief 获取数据库路径
      * @return
      */

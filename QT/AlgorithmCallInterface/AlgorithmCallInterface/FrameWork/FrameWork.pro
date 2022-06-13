@@ -1,4 +1,10 @@
 QT       += core gui
+QT += sql
+QT += serialport
+QT += network
+QT += concurrent
+QT += xlsx
+CONFIG+=resources_big
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -25,7 +31,31 @@ HEADERS += \
 FORMS += \
     winmain.ui
 
+INCLUDEPATH += $$PWD/../3rdParty/include/log4qt
+INCLUDEPATH += $$PWD/../3rdParty/include/libWavFileProcess
+INCLUDEPATH += $$PWD/../3rdParty/include/
+INCLUDEPATH += $$PWD/../LibBase
+INCLUDEPATH += $$PWD/../LibControl
+INCLUDEPATH += $$PWD/../LibCommunicate
+
+LIBS += -L$$PWD/../libs -llibbase
+LIBS += -L$$PWD/../3rdParty/lib/ -llog4qt
+LIBS += -L$$PWD/../libs -llibControl
+LIBS += -L$$PWD/../libs -llibCommunicate
+
+# PRE_TARGETDEPS += $$PWD/../3rdParty/lib/liblog4qt.a
+DESTDIR += $$PWD/../bin/
+
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+PRE_TARGETDEPS += $$PWD/../libs/liblibBase.a
+PRE_TARGETDEPS += $$PWD/../libs/liblibControl.a
+
+RESOURCES += \
+    ../images.qrc
+
+OTHER_FILES += app.rc
+RC_FILE += app.rc
