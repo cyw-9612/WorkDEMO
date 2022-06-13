@@ -2,7 +2,9 @@
     <qresource prefix="/qt/etc">
         <file>qt.conf</file>
     </qresource>
-    <qresource prefix="/Font"/>
+    <qresource prefix="/Font">
+        <file>Font/SourceHanSansK-Bold.TTF</file>
+    </qresource>
     <qresource prefix="/">
         <file>images/add.png</file>
         <file>images/AWA5920.png</file>

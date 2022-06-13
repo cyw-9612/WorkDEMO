@@ -122,7 +122,7 @@ int main(int argc, char *argv[])
 #endif
 
     //配置自定义字体文件
-    int nIndex = QFontDatabase::addApplicationFont(":/font/Font/SourceHanSansK-Bold.TTF");
+    int nIndex = QFontDatabase::addApplicationFont(":/Font/Font/SourceHanSansK-Bold.TTF");
     if (nIndex != -1)
     {
       QStringList strList(QFontDatabase::applicationFontFamilies(nIndex));
