@@ -21,6 +21,7 @@
 #include "libcontrol.h"
 #include "myAESTool/qaesencryption.h"
 #include "mytool.h"
+#include "SysInfo/sysinfo.h"
 
 #define GB (1024*1024*1024)
 
@@ -30,7 +31,9 @@ QSharedPointer<winMain> winMain::m_pInstance=nullptr;
 
 winMain::winMain(QWidget *parent)
     : BaseView(parent)
-    , ui(new Ui::winMain)
+    , ui(new Ui::winMain),
+      mCpuWidget(this),
+      mMemoryWidget(this)
 {
     ui->setupUi(this);
 
@@ -42,9 +45,11 @@ winMain::winMain(QWidget *parent)
 
     InitUI();
 
-    InitSignal();
+    SysInfo::instance().init();
+    ui->bottomLayout->addWidget(&mCpuWidget);
+    ui->bottomLayout->addWidget(&mMemoryWidget);
 
-    deleteOver7daysLog();
+    InitSignal();
 
     //获取软件配置信息
     //QSettings *configIniRead = new QSettings("config.ini", QSettings::IniFormat);
@@ -59,6 +64,8 @@ winMain::winMain(QWidget *parent)
     m_pDB = new CDataBase("sqlConn_winMain");
 
     qRegisterMetaType<QMap<QVariant,QVariant>>("QMap<QVariant,QVariant>");//注册diskInformation类型
+
+    deleteOver7daysLog();
 }
 
 winMain::~winMain()
@@ -241,17 +248,17 @@ void winMain::SlotHelp()
 
 void winMain::OnOptionOneSlot()
 {
-
+    qDebug() << "OnOptionOneSlot()";
 }
 
 void winMain::OnOptionTwoSlot()
 {
-
+    qDebug() << "OnOptionTwoSlot()";
 }
 
 void winMain::OnOptionThreeSlot()
 {
-
+    qDebug() << "OnOptionThreeSlot()";
 }
 
 /**查询电脑信息*/

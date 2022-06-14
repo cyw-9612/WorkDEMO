@@ -4,6 +4,8 @@ QT += serialport
 QT += network
 QT += concurrent
 QT += xlsx
+QT += widgets
+QT += charts multimedia
 CONFIG+=resources_big
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets

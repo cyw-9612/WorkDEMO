@@ -2,6 +2,7 @@ QT += widgets
 QT += core gui
 QT += multimedia
 QT += sql
+QT += charts multimedia
 
 TEMPLATE = lib
 DEFINES += LIBCONTROL_LIBRARY
@@ -24,6 +25,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    SysInfo/cpuwidget.cpp \
+    SysInfo/memorywidget.cpp \
+    SysInfo/sysinfo.cpp \
+#    SysInfo/sysinfolinuximpl.cpp \
+    SysInfo/sysinfowidget.cpp \
+    SysInfo/sysinfowindowsimpl.cpp \
     baseview.cpp \
     childview.cpp \
     libcontrol.cpp \
@@ -43,6 +50,12 @@ SOURCES += \
 
 HEADERS += \
     LibControl_global.h \
+    SysInfo/cpuwidget.h \
+    SysInfo/memorywidget.h \
+    SysInfo/sysinfo.h \
+#    SysInfo/sysinfolinuximpl.h \
+    SysInfo/sysinfowidget.h \
+    SysInfo/sysinfowindowsimpl.h \
     baseview.h \
     childview.h \
     libcontrol.h \

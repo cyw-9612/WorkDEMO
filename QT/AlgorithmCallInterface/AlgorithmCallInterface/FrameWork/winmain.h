@@ -13,6 +13,8 @@
 #include "communicate.h"
 #include <logger/rtlogger.h>
 #include "protocal/packParam.h"
+#include "SysInfo/cpuwidget.h"
+#include "SysInfo/memorywidget.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class winMain; }
@@ -116,5 +118,8 @@ private:
 
     //获取数据库指针
     CDataBase *m_pDB = nullptr;
+
+    CpuWidget mCpuWidget;
+    MemoryWidget mMemoryWidget;
 };
 #endif // WINMAIN_H
