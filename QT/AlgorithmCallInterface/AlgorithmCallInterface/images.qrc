@@ -56,5 +56,6 @@
         <file>images/unEnable.png</file>
         <file>images/valueDown.png</file>
         <file>images/valueUp.png</file>
+        <file>images/blackPoint.png</file>
     </qresource>
 </RCC>

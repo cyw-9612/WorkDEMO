@@ -21,7 +21,6 @@
 #include "libcontrol.h"
 #include "myAESTool/qaesencryption.h"
 #include "mytool.h"
-#include "SysInfo/sysinfo.h"
 
 #define GB (1024*1024*1024)
 
@@ -31,9 +30,7 @@ QSharedPointer<winMain> winMain::m_pInstance=nullptr;
 
 winMain::winMain(QWidget *parent)
     : BaseView(parent)
-    , ui(new Ui::winMain),
-      mCpuWidget(this),
-      mMemoryWidget(this)
+    , ui(new Ui::winMain)
 {
     ui->setupUi(this);
 
@@ -45,20 +42,16 @@ winMain::winMain(QWidget *parent)
 
     InitUI();
 
-    SysInfo::instance().init();
-    ui->bottomLayout->addWidget(&mCpuWidget);
-    ui->bottomLayout->addWidget(&mMemoryWidget);
-
     InitSignal();
 
     //获取软件配置信息
-    //QSettings *configIniRead = new QSettings("config.ini", QSettings::IniFormat);
+    QSettings *configIniRead = new QSettings("config.ini", QSettings::IniFormat);
     //将读取到的ini文件保存在QString中，先取值，然后通过toString()函数转换成QString类型
-//    QString ip = configIniRead->value("/ip/first").toString();
-//    int port = configIniRead->value("/port/open").toInt();
+    QString ip = configIniRead->value("/ip/first").toString();
+    int port = configIniRead->value("/port/open").toInt();
 
     //读入入完成后删除指针
-    //delete configIniRead;
+    delete configIniRead;
 
     //建立数据库连接
     m_pDB = new CDataBase("sqlConn_winMain");
@@ -81,6 +74,26 @@ winMain::~winMain()
         m_menu = nullptr;
     }
 
+    if(m_messageBox != nullptr)
+    {
+        delete  m_messageBox;
+        m_messageBox = nullptr;
+    }
+
+    if(m_threadInfo != nullptr)
+    {
+        delete  m_threadInfo;
+        m_threadInfo = nullptr;
+    }
+
+    // 停止电脑信息获取线程。
+    if (Thread_PCInfo)
+    {
+        Thread_PCInfo->quit();
+        Thread_PCInfo->wait();
+        Thread_PCInfo = NULL;
+    }
+
     qDebug() << "~winMain";
 }
 
@@ -97,13 +110,15 @@ void winMain::InitUI()
     QStringList dialogNames;
     dialogNames << "RTDeviceStatusClassWindow"
                            << "myMessageDialog"
+                           << "currentThreadDialog"
+                           << "miniMessageDialog"
                            << "myProgressBox";
 
     RtMaskLayer::Instance()->SetDialogNames(dialogNames);
 
-    m_menu = new QMenu("设置"); // 创建菜单项
+    m_menu = new QMenu("其他"); // 创建菜单项
 
-    m_optionOne = new QAction("功能一");
+    m_optionOne = new QAction("查看电脑进程");
     m_optionTwo = new QAction("功能二");
     m_optionThree = new QAction("功能三");
 
@@ -125,7 +140,25 @@ void winMain::InitUI()
             background-color : rgb(1, 160, 165);}";
     m_menu->setStyleSheet(munuStyle);
 
-//    ui->btn_setting->setMenu(m_menu);
+    ui->btn_setting->setMenu(m_menu);
+
+    m_messageBox = new miniMessageDialog(this);
+
+    m_functionWidget = new myFunctionListwidget(ui->bottomPanel);
+    ui->bottomLayout->addWidget(m_functionWidget);
+
+    m_PCInfo = new myComputerInfoDialog(ui->bottomPanel);
+    ui->bottomLayout->addWidget(m_PCInfo);
+
+    ui->bottomLayout->setStretch(0,4);
+    ui->bottomLayout->setStretch(1,3);
+
+    m_threadInfo = new currentThreadDialog(this);
+
+    Thread_PCInfo = new QThread;
+    m_PCInfo->moveToThread(Thread_PCInfo);
+    m_threadInfo->moveToThread(Thread_PCInfo);
+    Thread_PCInfo->start();
 }
 
 // 信号初始化
@@ -141,6 +174,18 @@ void winMain::InitSignal()
     connect(m_optionOne, &QAction::triggered, this, &winMain::OnOptionOneSlot);
     connect(m_optionTwo, &QAction::triggered, this, &winMain::OnOptionTwoSlot);
     connect(m_optionThree, &QAction::triggered, this, &winMain::OnOptionThreeSlot);
+
+    connect(m_functionWidget, SIGNAL(sigHFSSBuildClicked()), this, SLOT(slotHFSSBuildClicked()));
+    connect(m_functionWidget, SIGNAL(sigCSTBuildClicked()), this, SLOT(slotCSTBuildcliCked()));
+    connect(m_functionWidget, SIGNAL(sigADSBuildcliCked()), this, SLOT(slotADSBuildcliCked()));
+    connect(m_functionWidget, SIGNAL(sigCOMSOLBuildClicked()), this, SLOT(slotCOMSOLBuildClicked()));
+    connect(m_functionWidget, SIGNAL(sigANNPretreatmentClicked()), this, SLOT(slotANNPretreatmentClicked()));
+    connect(m_functionWidget, SIGNAL(sigANNTrainClicked()), this, SLOT(slotANNTrainClicked()));
+    connect(m_functionWidget, SIGNAL(sigANNAutoOptClicked()), this, SLOT(slotANNAutoOptClicked()));
+    connect(m_functionWidget, SIGNAL(sigPythonCPUClicked()), this, SLOT(slotPythonCPUClicked()));
+    connect(m_functionWidget, SIGNAL(sigPythongGPUClicked()), this, SLOT(slotPythongGPUClicked()));
+    connect(m_functionWidget, SIGNAL(sigMATLABTaskClicked()), this, SLOT(slotMATLABTaskClicked()));
+    connect(m_functionWidget, SIGNAL(sigTaskMonitorClicked()), this, SLOT(slotTaskMonitorClicked()));
 }
 
 void winMain::deleteOver7daysLog()
@@ -243,22 +288,81 @@ void winMain::SlotSetting()
 //帮助按钮
 void winMain::SlotHelp()
 {
-
+    m_messageBox->showMeaasge("显示使用说明书");
 }
 
 void winMain::OnOptionOneSlot()
 {
     qDebug() << "OnOptionOneSlot()";
+    m_threadInfo->MoveToCenter();
+    m_threadInfo->show();
 }
 
 void winMain::OnOptionTwoSlot()
 {
     qDebug() << "OnOptionTwoSlot()";
+    m_messageBox->showMeaasge("功能未部署");
 }
 
 void winMain::OnOptionThreeSlot()
 {
     qDebug() << "OnOptionThreeSlot()";
+    m_messageBox->showMeaasge("功能未部署");
+}
+
+void winMain::slotHFSSBuildClicked()
+{
+    m_messageBox->showMeaasge("功能未部署");
+}
+
+void winMain::slotCSTBuildcliCked()
+{
+    m_messageBox->showMeaasge("功能未部署");
+}
+
+void winMain::slotADSBuildcliCked()
+{
+    m_messageBox->showMeaasge("功能未部署");
+}
+
+void winMain::slotCOMSOLBuildClicked()
+{
+    m_messageBox->showMeaasge("功能未部署");
+}
+
+void winMain::slotANNPretreatmentClicked()
+{
+    m_messageBox->showMeaasge("功能未部署");
+}
+
+void winMain::slotANNTrainClicked()
+{
+    m_messageBox->showMeaasge("功能未部署");
+}
+
+void winMain::slotANNAutoOptClicked()
+{
+    m_messageBox->showMeaasge("功能未部署");
+}
+
+void winMain::slotPythonCPUClicked()
+{
+    m_messageBox->showMeaasge("功能未部署");
+}
+
+void winMain::slotPythongGPUClicked()
+{
+    m_messageBox->showMeaasge("功能未部署");
+}
+
+void winMain::slotMATLABTaskClicked()
+{
+    m_messageBox->showMeaasge("功能未部署");
+}
+
+void winMain::slotTaskMonitorClicked()
+{
+    m_messageBox->showMeaasge("功能未部署");
 }
 
 /**查询电脑信息*/

@@ -287,7 +287,7 @@ QPushButton:checked {
 </string>
           </property>
           <property name="text">
-           <string>设置</string>
+           <string>其他</string>
           </property>
           <property name="checkable">
            <bool>true</bool>
@@ -478,7 +478,19 @@ background-image:url(:/images/btnClose_normal.png);}</string>
       <item>
        <layout class="QVBoxLayout" name="bottomLayout">
         <property name="spacing">
-         <number>0</number>
+         <number>10</number>
+        </property>
+        <property name="leftMargin">
+         <number>20</number>
+        </property>
+        <property name="topMargin">
+         <number>20</number>
+        </property>
+        <property name="rightMargin">
+         <number>20</number>
+        </property>
+        <property name="bottomMargin">
+         <number>20</number>
         </property>
        </layout>
       </item>

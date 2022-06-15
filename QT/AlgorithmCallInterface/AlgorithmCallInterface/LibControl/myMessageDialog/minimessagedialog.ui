@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>miniMessageDialog</class>
+ <widget class="QDialog" name="miniMessageDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>300</width>
+    <height>200</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(255, 255, 255);</string>
+  </property>
+  <widget class="QWidget" name="widget" native="true">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>300</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>300</width>
+     <height>40</height>
+    </size>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QWidget#widget{
+	background-color: rgb(55, 63, 81);
+}</string>
+   </property>
+   <widget class="QLabel" name="lab_title">
+    <property name="geometry">
+     <rect>
+      <x>15</x>
+      <y>8</y>
+      <width>76</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 75 14pt;
+background-color: rgb(55, 63, 81);
+color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string>提示信息</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_close">
+    <property name="geometry">
+     <rect>
+      <x>260</x>
+      <y>0</y>
+      <width>40</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::StrongFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QToolTip{border:1px solid rgb(118, 118, 118); background-color: #ffffff; color:#484848; font-size:12px;}
+QPushButton:hover{border: no;
+background-image:url(:/images/btnClose_mini.png);}
+QPushButton{border: no;
+background-image: url(:/images/btnClose_mini_norm.png);}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QPushButton" name="btn_determine">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>150</y>
+     <width>100</width>
+     <height>35</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>100</width>
+     <height>35</height>
+    </size>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton{ font: bold large 'SourceHanSansK-Regular';font-size:14px;
+                                border: 0px solid;
+                                background-color:rgb(1, 159, 164);
+                                color:rgba(255, 255, 255,1);
+                                border-radius: 2px;
+                                }
+                                QPushButton:disabled{
+                                background-color:#DCDCDC;
+                                border-radius:2px;
+                                color:#FFFFFF;    
+                                }
+                                QPushButton:hover{
+                                border: 0px solid;
+                                background-color:rgba(88, 164, 176,1);
+                                color:rgba(255, 255, 255,1);
+                                border-radius:2px;
+                                opacity:0.2;
+                                }
+                                QPushButton:pressed{
+                                background-color:rgba(58, 108, 116,1);
+                                color:rgba(255, 255, 255,1);
+                                border-radius:2px;
+                                }</string>
+   </property>
+   <property name="text">
+    <string>确定</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>90</y>
+     <width>271</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 255, 255);
+color: rgb(0, 0, 0);
+font: 12pt &quot;黑体&quot;;
+border-width:0;
+border-style:outset;</string>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

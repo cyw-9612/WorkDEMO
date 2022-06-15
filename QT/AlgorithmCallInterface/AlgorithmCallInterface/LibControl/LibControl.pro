@@ -37,8 +37,13 @@ SOURCES += \
     myAESTool/myrsa.cpp \
     myAESTool/qaesencryption.cpp \
     myAESTool/usetimemark.cpp \
+    myComputerInfoDialog/currentthreaddialog.cpp \
+    myComputerInfoDialog/mycomputerinfodialog.cpp \
+    myComputerInfoDialog/threadcheck.cpp \
     myDataBase/cdatabase.cpp \
     myDataBase/cfile.cpp \
+    myFunctionListwidget/myfunctionlistwidget.cpp \
+    myMessageDialog/minimessagedialog.cpp \
     myMessageDialog/mymessagedialog.cpp \
     myProgressBox/myprogressbox.cpp \
     myProgressBox/picprogress.cpp \
@@ -62,8 +67,13 @@ HEADERS += \
     myAESTool/myrsa.h \
     myAESTool/qaesencryption.h \
     myAESTool/usetimemark.h \
+    myComputerInfoDialog/currentthreaddialog.h \
+    myComputerInfoDialog/mycomputerinfodialog.h \
+    myComputerInfoDialog/threadcheck.h \
     myDataBase/cdatabase.h \
     myDataBase/cfile.h \
+    myFunctionListwidget/myfunctionlistwidget.h \
+    myMessageDialog/minimessagedialog.h \
     myMessageDialog/mymessagedialog.h \
     myProgressBox/myprogressbox.h \
     myProgressBox/picprogress.h \
@@ -91,6 +101,10 @@ unix {
 !isEmpty(target.path): INSTALLS += target
 
 FORMS += \
+    myComputerInfoDialog/currentthreaddialog.ui \
+    myComputerInfoDialog/mycomputerinfodialog.ui \
+    myFunctionListwidget/myfunctionlistwidget.ui \
+    myMessageDialog/minimessagedialog.ui \
     myMessageDialog/mymessagedialog.ui \
     myProgressBox/myprogressbox.ui \
     myToolTip/mytooltip.ui \

@@ -13,8 +13,10 @@
 #include "communicate.h"
 #include <logger/rtlogger.h>
 #include "protocal/packParam.h"
-#include "SysInfo/cpuwidget.h"
-#include "SysInfo/memorywidget.h"
+#include "myFunctionListwidget/myfunctionlistwidget.h"
+#include "myComputerInfoDialog/mycomputerinfodialog.h"
+#include "myComputerInfoDialog/currentthreaddialog.h"
+#include "myMessageDialog/minimessagedialog.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class winMain; }
@@ -70,6 +72,18 @@ private slots:
     void OnOptionOneSlot();
     void OnOptionTwoSlot();
     void OnOptionThreeSlot();
+
+    void slotHFSSBuildClicked();
+    void slotCSTBuildcliCked();
+    void slotADSBuildcliCked();
+    void slotCOMSOLBuildClicked();
+    void slotANNPretreatmentClicked();
+    void slotANNTrainClicked();
+    void slotANNAutoOptClicked();
+    void slotPythonCPUClicked();
+    void slotPythongGPUClicked();
+    void slotMATLABTaskClicked();
+    void slotTaskMonitorClicked();
 private:
     //查询电脑硬件信息
     QString getWMIC(const QString &cmd);
@@ -119,7 +133,19 @@ private:
     //获取数据库指针
     CDataBase *m_pDB = nullptr;
 
-    CpuWidget mCpuWidget;
-    MemoryWidget mMemoryWidget;
+    //功能按键界面模块
+    myFunctionListwidget * m_functionWidget = nullptr;
+
+    //电脑信息界面模块
+    myComputerInfoDialog *m_PCInfo = nullptr;
+
+    //系统当前进程信息窗口
+    currentThreadDialog *m_threadInfo = nullptr;
+
+    //用于加资电脑信息的线程
+    QThread *Thread_PCInfo;
+
+    //消息提示弹窗
+    miniMessageDialog *m_messageBox = nullptr;
 };
 #endif // WINMAIN_H

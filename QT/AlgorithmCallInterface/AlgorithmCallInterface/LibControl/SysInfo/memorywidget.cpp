@@ -34,8 +34,11 @@ MemoryWidget::MemoryWidget(QWidget *parent) :
     areaSeries->setBrush(gradient);
 
     QChart* chart = chartView().chart();
+    QMargins m(-10,-10,-10,-10);
+    chart->setMargins(m);
     chart->addSeries(areaSeries);
-    chart->setTitle("Memory used");
+//    chart->setTitle("Memory used");
+    chart->setTitle("内存使用情况");
     chart->createDefaultAxes();
     chart->axisX()->setRange(0, CHART_X_RANGE_MAX);
     chart->axisX()->setVisible(false);
