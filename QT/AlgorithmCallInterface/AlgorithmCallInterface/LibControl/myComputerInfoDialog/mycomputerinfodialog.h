@@ -6,6 +6,7 @@
 #include "LibControl_global.h"
 #include "SysInfo/cpuwidget.h"
 #include "SysInfo/memorywidget.h"
+#include "SysInfo/sysinfominiwidgat.h"
 
 /***********************************
  *
@@ -55,11 +56,14 @@ public:
      */
      void setCtrlRange();
 
+     void setMiniMode(bool isMini);
 private:
     Ui::myComputerInfoDialog *ui;
 
     CpuWidget mCpuWidget;
     MemoryWidget mMemoryWidget;
+
+    sysInfoMiniWidgat *m_miniInfoWIdget = nullptr;
 };
 
 #endif // MYCOMPUTERINFODIALOG_H

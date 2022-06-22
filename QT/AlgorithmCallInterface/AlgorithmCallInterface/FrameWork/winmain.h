@@ -14,6 +14,8 @@
 #include <logger/rtlogger.h>
 #include "protocal/packParam.h"
 #include "myFunctionListwidget/myfunctionlistwidget.h"
+#include "myFunctionListwidget/myfunctiondisplaydialog.h"
+#include "myFunctionListwidget/taskchoisedialog.h"
 #include "myComputerInfoDialog/mycomputerinfodialog.h"
 #include "myComputerInfoDialog/currentthreaddialog.h"
 #include "myMessageDialog/minimessagedialog.h"
@@ -84,6 +86,13 @@ private slots:
     void slotPythongGPUClicked();
     void slotMATLABTaskClicked();
     void slotTaskMonitorClicked();
+
+    void slotCSTbuild();
+    void slotANNtrain();
+    void slotANNused();
+
+   void slotANNTrainCancal();
+   void slotANNTrainComfirm(QString jsonText);
 private:
     //查询电脑硬件信息
     QString getWMIC(const QString &cmd);
@@ -114,6 +123,13 @@ private:
 
     //获取电脑所有盘符名
     QStringList getDiskName();
+
+private:
+    //设置电脑信息栏改变布局
+    void setLayoutMini(bool isMini);
+
+    //更新ANN参数设置界面基本设置
+    void updataANNInfo();
 
 private:
     Ui::winMain *ui;
@@ -147,5 +163,6 @@ private:
 
     //消息提示弹窗
     miniMessageDialog *m_messageBox = nullptr;
+
 };
 #endif // WINMAIN_H

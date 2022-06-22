@@ -107,6 +107,12 @@ private:
     bool initTabFunction();
 
     /**
+     * @brief 初始化ANN参数信息表
+     * @return
+     */
+    bool initANNInfo();
+
+    /**
      * @brief 获取数据库路径
      * @return
      */

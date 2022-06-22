@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>829</width>
-    <height>335</height>
+    <width>792</width>
+    <height>381</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,7 +20,7 @@
 	border-radius: 10px;
 }</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout_2" rowstretch="20,20,10,200,20" columnstretch="1,5,1">
+  <layout class="QGridLayout" name="gridLayout_2" rowstretch="20,20,10,100,20" columnstretch="1,5,1">
    <property name="leftMargin">
     <number>0</number>
    </property>
@@ -133,7 +133,7 @@ font: bold large 'SourceHanSansK-Regular';font-size:20px;
      <property name="minimumSize">
       <size>
        <width>0</width>
-       <height>200</height>
+       <height>30</height>
       </size>
      </property>
      <property name="styleSheet">

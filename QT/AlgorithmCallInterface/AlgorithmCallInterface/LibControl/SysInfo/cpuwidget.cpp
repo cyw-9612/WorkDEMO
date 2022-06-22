@@ -29,6 +29,7 @@ void CpuWidget::updateSeries()
 {
     //动态刷新CPU的使用率
     double cpuLoadAverage = SysInfo::instance().cpuLoadAverage();
+    emit sigCpuData(cpuLoadAverage);
     mSeries->clear();
     mSeries->append("Load", cpuLoadAverage);
     mSeries->append("Free", 100.0 - cpuLoadAverage);

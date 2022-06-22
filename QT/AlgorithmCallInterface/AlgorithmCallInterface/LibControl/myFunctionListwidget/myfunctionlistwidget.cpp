@@ -30,17 +30,23 @@ void myFunctionListwidget::setStyle()
 //关联信号槽
 void myFunctionListwidget::connectSlots()
 {
+    connect(m_functionWidget, SIGNAL(sigCSTbuild()), this, SLOT(slotCSTbuild()));
+    connect(m_functionWidget, SIGNAL(sigANNtrain()), this, SLOT(slotANNtrain()));
+    connect(m_functionWidget, SIGNAL(sigANNused()), this, SLOT(slotANNused()));
 
+    connect(m_taskParameterDialog, SIGNAL(sigCancal()),this, SLOT(slotANNTrainCancal()));
+    connect(m_taskParameterDialog, SIGNAL(sigComfirm(QString)),this, SLOT(slotANNTrainComfirm(QString)));
 }
 
 //初始化界面
 void myFunctionListwidget::initUI()
 {
-    ui->btn_HFSSBuild->setEnabled(false);
+    m_functionWidget = new myFunctionDisplayDialog(this);
+    ui->gridLayout->addWidget(m_functionWidget);
 
-    ui->btn_ADSBuild->setEnabled(false);
-
-    ui->btn_PythonGPU->setEnabled(false);
+    m_taskParameterDialog = new taskChoiseDialog(this);
+    ui->gridLayout->addWidget(m_taskParameterDialog);
+    m_taskParameterDialog->hide();
 }
 
 //设置控件输入范围
@@ -49,57 +55,39 @@ void myFunctionListwidget::setCtrlRange()
 
 }
 
-void myFunctionListwidget::on_btn_HFSSBuild_clicked()
+//设置ANN参数列表信息
+void myFunctionListwidget::setANNInfo(QString dataJson)
 {
-    emit sigHFSSBuildClicked();
+    m_taskParameterDialog->setANNInfo(dataJson);
 }
 
-void myFunctionListwidget::on_btn_CSTBuild_clicked()
+void myFunctionListwidget::slotCSTbuild()
 {
-    emit sigCSTBuildClicked();
+    emit sigCSTbuild();
 }
 
-void myFunctionListwidget::on_btn_ADSBuild_clicked()
+void myFunctionListwidget::slotANNtrain()
 {
-    emit sigADSBuildcliCked();
+    emit sigANNtrain();
+    m_functionWidget->hide();
+    m_taskParameterDialog->show();
 }
 
-void myFunctionListwidget::on_btn_COMSOLBuild_clicked()
+void myFunctionListwidget::slotANNused()
 {
-    emit sigCOMSOLBuildClicked();
+    emit sigANNused();
 }
 
-void myFunctionListwidget::on_btn_ANNPretreatment_clicked()
+void myFunctionListwidget::slotANNTrainCancal()
 {
-    emit sigANNPretreatmentClicked();
+    m_functionWidget->show();
+    m_taskParameterDialog->hide();
+    emit sigANNTrainCancal();
 }
 
-void myFunctionListwidget::on_btn_ANNTrain_clicked()
+void myFunctionListwidget::slotANNTrainComfirm(QString dataJson)
 {
-    emit sigANNTrainClicked();
-}
-
-void myFunctionListwidget::on_btn_ANNAutoOpt_clicked()
-{
-    emit sigANNAutoOptClicked();
-}
-
-void myFunctionListwidget::on_btn_PythonCPU_clicked()
-{
-    emit sigPythonCPUClicked();
-}
-
-void myFunctionListwidget::on_btn_PythongGPU_clicked()
-{
-    emit sigPythongGPUClicked();
-}
-
-void myFunctionListwidget::on_btn_MATLABTask_clicked()
-{
-    emit sigMATLABTaskClicked();
-}
-
-void myFunctionListwidget::on_btn_TaskMonitor_clicked()
-{
-    emit sigTaskMonitorClicked();
+    m_functionWidget->show();
+    m_taskParameterDialog->hide();
+    emit sigANNTrainComfirm(dataJson);
 }

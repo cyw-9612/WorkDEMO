@@ -56,6 +56,8 @@ winMain::winMain(QWidget *parent)
     //建立数据库连接
     m_pDB = new CDataBase("sqlConn_winMain");
 
+    updataANNInfo();
+
     qRegisterMetaType<QMap<QVariant,QVariant>>("QMap<QVariant,QVariant>");//注册diskInformation类型
 
     deleteOver7daysLog();
@@ -175,17 +177,24 @@ void winMain::InitSignal()
     connect(m_optionTwo, &QAction::triggered, this, &winMain::OnOptionTwoSlot);
     connect(m_optionThree, &QAction::triggered, this, &winMain::OnOptionThreeSlot);
 
-    connect(m_functionWidget, SIGNAL(sigHFSSBuildClicked()), this, SLOT(slotHFSSBuildClicked()));
-    connect(m_functionWidget, SIGNAL(sigCSTBuildClicked()), this, SLOT(slotCSTBuildcliCked()));
-    connect(m_functionWidget, SIGNAL(sigADSBuildcliCked()), this, SLOT(slotADSBuildcliCked()));
-    connect(m_functionWidget, SIGNAL(sigCOMSOLBuildClicked()), this, SLOT(slotCOMSOLBuildClicked()));
-    connect(m_functionWidget, SIGNAL(sigANNPretreatmentClicked()), this, SLOT(slotANNPretreatmentClicked()));
-    connect(m_functionWidget, SIGNAL(sigANNTrainClicked()), this, SLOT(slotANNTrainClicked()));
-    connect(m_functionWidget, SIGNAL(sigANNAutoOptClicked()), this, SLOT(slotANNAutoOptClicked()));
-    connect(m_functionWidget, SIGNAL(sigPythonCPUClicked()), this, SLOT(slotPythonCPUClicked()));
-    connect(m_functionWidget, SIGNAL(sigPythongGPUClicked()), this, SLOT(slotPythongGPUClicked()));
-    connect(m_functionWidget, SIGNAL(sigMATLABTaskClicked()), this, SLOT(slotMATLABTaskClicked()));
-    connect(m_functionWidget, SIGNAL(sigTaskMonitorClicked()), this, SLOT(slotTaskMonitorClicked()));
+//    connect(m_functionWidget, SIGNAL(sigHFSSBuildClicked()), this, SLOT(slotHFSSBuildClicked()));
+//    connect(m_functionWidget, SIGNAL(sigCSTBuildClicked()), this, SLOT(slotCSTBuildcliCked()));
+//    connect(m_functionWidget, SIGNAL(sigADSBuildcliCked()), this, SLOT(slotADSBuildcliCked()));
+//    connect(m_functionWidget, SIGNAL(sigCOMSOLBuildClicked()), this, SLOT(slotCOMSOLBuildClicked()));
+//    connect(m_functionWidget, SIGNAL(sigANNPretreatmentClicked()), this, SLOT(slotANNPretreatmentClicked()));
+//    connect(m_functionWidget, SIGNAL(sigANNTrainClicked()), this, SLOT(slotANNTrainClicked()));
+//    connect(m_functionWidget, SIGNAL(sigANNAutoOptClicked()), this, SLOT(slotANNAutoOptClicked()));
+//    connect(m_functionWidget, SIGNAL(sigPythonCPUClicked()), this, SLOT(slotPythonCPUClicked()));
+//    connect(m_functionWidget, SIGNAL(sigPythongGPUClicked()), this, SLOT(slotPythongGPUClicked()));
+//    connect(m_functionWidget, SIGNAL(sigMATLABTaskClicked()), this, SLOT(slotMATLABTaskClicked()));
+//    connect(m_functionWidget, SIGNAL(sigTaskMonitorClicked()), this, SLOT(slotTaskMonitorClicked()));
+
+    connect(m_functionWidget, SIGNAL(sigCSTbuild()), this, SLOT(slotCSTbuild()));
+    connect(m_functionWidget, SIGNAL(sigANNtrain()), this, SLOT(slotANNtrain()));
+    connect(m_functionWidget, SIGNAL(sigANNused()), this, SLOT(slotANNused()));
+
+    connect(m_functionWidget, SIGNAL(sigANNTrainCancal()), this, SLOT(slotANNTrainCancal()));
+    connect(m_functionWidget, SIGNAL(sigANNTrainComfirm(QString)), this, SLOT(slotANNTrainComfirm(QString)));
 }
 
 void winMain::deleteOver7daysLog()
@@ -363,6 +372,56 @@ void winMain::slotMATLABTaskClicked()
 void winMain::slotTaskMonitorClicked()
 {
     m_messageBox->showMeaasge("功能未部署");
+}
+
+void winMain::slotCSTbuild()
+{
+    m_messageBox->showMeaasge("功能未部署");
+}
+
+void winMain::slotANNtrain()
+{
+    setLayoutMini(true);
+}
+
+void winMain::slotANNused()
+{
+    m_messageBox->showMeaasge("功能未部署");
+}
+
+void winMain::slotANNTrainCancal()
+{
+    setLayoutMini(false);
+    m_messageBox->showMeaasge("取消参数设置");
+}
+
+void winMain::slotANNTrainComfirm(QString jsonText)
+{
+    Q_UNUSED(jsonText);
+    setLayoutMini(false);
+
+    if(m_pDB)
+    {
+        QString strSql=QLatin1String("update ANNdataInfo set "
+                                     "dataJson=:dataJson"
+                                     " where dataIndex=:dataIndex");
+
+
+        //要绑定的字段添加到map
+        QMap<QVariant,QVariant> map;
+        map.insert(":dataIndex","baseInfo");
+        map.insert(":dataJson",jsonText);
+
+        //执行SQL
+        m_pDB->ExecuteSql(strSql,map);
+
+        qDebug()<<"success to update picStr INTO table dataInfo!";
+
+        m_messageBox->showMeaasge("参数设置成功");
+        return;
+    }
+
+    m_messageBox->showMeaasge("参数设置失败");
 }
 
 /**查询电脑信息*/
@@ -550,3 +609,44 @@ QStringList winMain::getDiskName()
     return diskNameList;
 }
 
+//设置电脑信息栏改变布局
+void winMain::setLayoutMini(bool isMini)
+{
+    if(isMini)
+    {
+        ui->bottomLayout->setStretch(0,5);
+        ui->bottomLayout->setStretch(1,1);
+    }
+    else
+    {
+        ui->bottomLayout->setStretch(0,4);
+        ui->bottomLayout->setStretch(1,3);
+    }
+
+    m_PCInfo->setMiniMode(isMini);
+}
+
+//更新ANN参数设置界面基本设置
+void winMain::updataANNInfo()
+{
+    if(m_pDB)
+    {
+        //获取需要导出的数据表名
+        QString strSql=QLatin1String("select * from ANNdataInfo where dataIndex=:dataIndex");
+
+        //要绑定的字段添加到map
+        QMap<QVariant,QVariant> map;
+        map.insert(":dataIndex","baseInfo");
+
+        //执行SQL
+        QSqlQuery query=m_pDB->searchData(strSql,map);
+
+        //按行遍历
+        while(query.next())
+        {
+            QString dataJson = query.value("dataJson").toString();
+            if(dataJson.length() > 10)
+                m_functionWidget->setANNInfo(dataJson);
+        }
+    }
+}

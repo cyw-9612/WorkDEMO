@@ -12,6 +12,9 @@ class LIBCONTROL_EXPORT CpuWidget : public SysInfoWidget
 public:
     explicit CpuWidget(QWidget* parent = 0);
 
+signals :
+    void sigCpuData(double num);
+
 protected:
     void resizeEvent(QResizeEvent *event) override;
 

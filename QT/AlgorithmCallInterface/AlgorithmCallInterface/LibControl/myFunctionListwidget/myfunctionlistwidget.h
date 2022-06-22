@@ -4,6 +4,8 @@
 #include <QDialog>
 #include "childview.h"
 #include "LibControl_global.h"
+#include "myfunctiondisplaydialog.h"
+#include "taskchoisedialog.h"
 
 /***********************************
  *
@@ -51,6 +53,9 @@ public:
      */
      void setCtrlRange();
 
+     //设置ANN参数列表信息
+     void setANNInfo(QString dataJson);
+
 signals:
      void sigHFSSBuildClicked();
 
@@ -74,31 +79,31 @@ signals:
 
      void sigTaskMonitorClicked();
 
+     void sigCSTbuild();
+
+     void sigANNtrain();
+
+     void sigANNused();
+
+     void sigANNTrainCancal();
+
+     void sigANNTrainComfirm(QString text);
+
 private slots:
-    void on_btn_HFSSBuild_clicked();
+     void slotCSTbuild();
+     void slotANNtrain();
+     void slotANNused();
 
-    void on_btn_CSTBuild_clicked();
-
-    void on_btn_ADSBuild_clicked();
-
-    void on_btn_COMSOLBuild_clicked();
-
-    void on_btn_ANNPretreatment_clicked();
-
-    void on_btn_ANNTrain_clicked();
-
-    void on_btn_ANNAutoOpt_clicked();
-
-    void on_btn_PythonCPU_clicked();
-
-    void on_btn_PythongGPU_clicked();
-
-    void on_btn_MATLABTask_clicked();
-
-    void on_btn_TaskMonitor_clicked();
-
+     void slotANNTrainCancal();
+     void slotANNTrainComfirm(QString dataJson);
 private:
     Ui::myFunctionListwidget *ui;
+
+    //功能展示界面模块
+    myFunctionDisplayDialog *m_functionWidget = nullptr;
+
+    //ANN参数测试列表
+    taskChoiseDialog *m_taskParameterDialog = nullptr;
 };
 
 #endif // MYFUNCTIONLISTWIDGET_H

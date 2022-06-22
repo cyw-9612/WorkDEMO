@@ -29,6 +29,7 @@ SOURCES += \
     SysInfo/memorywidget.cpp \
     SysInfo/sysinfo.cpp \
 #    SysInfo/sysinfolinuximpl.cpp \
+    SysInfo/sysinfominiwidgat.cpp \
     SysInfo/sysinfowidget.cpp \
     SysInfo/sysinfowindowsimpl.cpp \
     baseview.cpp \
@@ -42,12 +43,15 @@ SOURCES += \
     myComputerInfoDialog/threadcheck.cpp \
     myDataBase/cdatabase.cpp \
     myDataBase/cfile.cpp \
+    myFunctionListwidget/myfunctiondisplaydialog.cpp \
     myFunctionListwidget/myfunctionlistwidget.cpp \
+    myFunctionListwidget/taskchoisedialog.cpp \
     myMessageDialog/minimessagedialog.cpp \
     myMessageDialog/mymessagedialog.cpp \
     myProgressBox/myprogressbox.cpp \
     myProgressBox/picprogress.cpp \
     myToolTip/mytooltip.cpp \
+    mydoublevalidator.cpp \
     mytool.cpp \
     popupview.cpp \
     rtmasklayer.cpp \
@@ -59,6 +63,7 @@ HEADERS += \
     SysInfo/memorywidget.h \
     SysInfo/sysinfo.h \
 #    SysInfo/sysinfolinuximpl.h \
+    SysInfo/sysinfominiwidgat.h \
     SysInfo/sysinfowidget.h \
     SysInfo/sysinfowindowsimpl.h \
     baseview.h \
@@ -72,12 +77,15 @@ HEADERS += \
     myComputerInfoDialog/threadcheck.h \
     myDataBase/cdatabase.h \
     myDataBase/cfile.h \
+    myFunctionListwidget/myfunctiondisplaydialog.h \
     myFunctionListwidget/myfunctionlistwidget.h \
+    myFunctionListwidget/taskchoisedialog.h \
     myMessageDialog/minimessagedialog.h \
     myMessageDialog/mymessagedialog.h \
     myProgressBox/myprogressbox.h \
     myProgressBox/picprogress.h \
     myToolTip/mytooltip.h \
+    mydoublevalidator.h \
     mytool.h \
     popupview.h \
     rtmasklayer.h \
@@ -101,9 +109,12 @@ unix {
 !isEmpty(target.path): INSTALLS += target
 
 FORMS += \
+    SysInfo/sysinfominiwidgat.ui \
     myComputerInfoDialog/currentthreaddialog.ui \
     myComputerInfoDialog/mycomputerinfodialog.ui \
+    myFunctionListwidget/myfunctiondisplaydialog.ui \
     myFunctionListwidget/myfunctionlistwidget.ui \
+    myFunctionListwidget/taskchoisedialog.ui \
     myMessageDialog/minimessagedialog.ui \
     myMessageDialog/mymessagedialog.ui \
     myProgressBox/myprogressbox.ui \

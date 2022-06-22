@@ -34,7 +34,7 @@ MemoryWidget::MemoryWidget(QWidget *parent) :
     areaSeries->setBrush(gradient);
 
     QChart* chart = chartView().chart();
-    QMargins m(-10,-10,-10,-10);
+    QMargins m(-10,-13,-10,-15);
     chart->setMargins(m);
     chart->addSeries(areaSeries);
 //    chart->setTitle("Memory used");
@@ -49,6 +49,7 @@ void MemoryWidget::updateSeries()
 {
     //刷线内存使用率
     double memoryUsed = SysInfo::instance().memoryUsed();
+    emit sigMemoryData(memoryUsed);
     mSeries->append(mPointPositionX++, memoryUsed);
     //超出显示范围之后往前滚动一个格子
     if (mSeries->count() > CHART_X_RANGE_COUNT) {

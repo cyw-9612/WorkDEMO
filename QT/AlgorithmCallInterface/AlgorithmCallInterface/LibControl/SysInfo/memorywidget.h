@@ -11,6 +11,9 @@ class LIBCONTROL_EXPORT MemoryWidget : public SysInfoWidget
 public:
     explicit MemoryWidget(QWidget *parent = 0);
 
+signals :
+    void sigMemoryData(double num);
+
 protected slots:
     void updateSeries() override;
     //以曲线图动态显示内存的占用率

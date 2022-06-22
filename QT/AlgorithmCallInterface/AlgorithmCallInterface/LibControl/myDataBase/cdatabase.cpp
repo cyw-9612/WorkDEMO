@@ -337,6 +337,13 @@ bool CDataBase::initTable()
         return false;
     }
 
+    //初始化ANN参数设置信息表
+    if(!initANNInfo())
+    {
+        qDebug()<<"ANN参数设置信息表初始化失败!";
+        return false;
+    }
+
     return true;
 }
 
@@ -344,43 +351,17 @@ bool CDataBase::initTabFunction()
 {
     /**
      * @brief 创建测试信息表的sql
-     * instrumentType; //仪器型号，唯一标识一条用户信息记录的字段
-     * measureSta;  //统计测量功能
-     * measureAll;  //总值测量功能
-     * measure1OCt; //1/1OCT测量功能
-     * measure3OCt;//1/3OCT测量功能
-     * measureExport; //声暴露计测量功能
-     * measureFFT; //快速傅里叶测量功能
-     * measure24H; //24小时测量功能
-     * instantSta; //瞬时统计功能
-     * instantALL; //瞬时总值功能
-     * instant1OCT; //瞬时1/1OCT
-     * instant3OCT; //瞬时1/3OCT
-     * realTimeSta; //实时统计功能
-     * realTimeALL; //实时总值功能
-     * realTime1OCT; //实时1/1OCT
-     * realTime3OCT; //实时1/3OCT
+     * dataOne 数据一
+     * dataTwo 数据二
+     * dataThree 数据三
+     * dataFour 数据四
      */
     const QString strSql=QLatin1String("create table dataInfo("
-                                       "instrumentType varchar(10) PRIMARY KEY NOT NULL,"
-                                       "measureSta bool Not Null,"
-                                       "measureAll bool Not Null,"
-                                       "measure1OCT bool Not Null,"
-                                       "measure3OCT bool Not Null,"
-                                       "measureExport bool Not Null,"
-                                       "measureFFT bool Not Null,"
-                                       "measure24H bool Not Null,"
-                                       "measureINDOOR bool Not Null,"
-                                       "instantSta bool Not Null,"
-                                       "instantAll bool Not Null,"
-                                       "instant1OCT bool Not Null,"
-                                       "instant3OCT bool Not Null,"
-                                       "instantINDOOR bool Not Null,"
-                                       "realTimeSta bool Not Null,"
-                                       "realTimeAll bool Not Null,"
-                                       "realTime1OCT bool Not Null,"
-                                       "realTime3OCT bool Not Null,"
-                                       "sound bool Not Null)");
+                                       "dataOne varchar(10) PRIMARY KEY NOT NULL,"
+                                       "dataTwo varchar(10) Not Null,"
+                                       "dataThree varchar(10) Not Null,"
+                                       "dataFour varchar(10) Not Null,"
+                                       "isUsed bool Not Null)");
 
     QStringList listTable = m_sqlConn.tables();
 
@@ -402,4 +383,37 @@ bool CDataBase::initTabFunction()
 
     return true;
 
+}
+
+bool CDataBase::initANNInfo()
+{
+    /**
+     * @brief 创建测试信息表的sql
+     * dataIndex
+     * dataJson
+     */
+    const QString strSql=QLatin1String("create table ANNdataInfo("
+                                       "dataIndex varchar(10) PRIMARY KEY NOT NULL,"
+                                       "dataJson varchar(10) Not Null,"
+                                       "isUsed bool Not Null)");
+
+    QStringList listTable = m_sqlConn.tables();
+
+    QSqlQuery query(m_sqlConn);
+
+    //如果用户信息表不存在则创建
+    if(!listTable.contains("ANNdataInfo", Qt::CaseInsensitive))
+    {
+        //创建表
+        if(!query.exec(strSql))
+        {
+            qDebug()<<"Failed to create table ANNdataInfo:"<<query.lastError();
+            return false;
+        }
+
+        qDebug()<<"success to create table ANNdataInfo";
+
+    }
+
+    return true;
 }
