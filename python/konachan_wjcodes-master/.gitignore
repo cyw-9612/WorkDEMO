@@ -1,0 +1,16 @@
+### Vim
+*.vimproject
+.exvim.*/
+*.swp
+
+### Python
+__pycache__/
+*.pyc
+
+### IDEA
+/.idea/
+
+venv/
+download/
+log/
+
